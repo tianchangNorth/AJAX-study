@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.3/axios.js"></script>
+  </head>
+  <body>
+    <button>GET</button>
+    <button>POST</button>
+    <button>AJAX</button>
+    <script>
+      const btns = document.querySelectorAll("button");
+      //配置baseURL
+      axios.defaults.baseURL = "http://127.0.0.1:8080";
+      btns[0].addEventListener("click", function () {
+        //GET请求
+        axios
+          .get("/axios-server", {
+            //url参数
+            params: {
+              id: 100,
+              vip: 7,
+            },
+            //请求头信息
+            headers: {
+              name: "tianchang",
+              age: 20,
+            },
+          })
+          .then((value) => {
+            console.log(value);
+          });
+      });
+
+      btns[1].onclick = function () {
+        axios.post(
+          "/axios-server",
+          //请求体
+          {
+            username: "admin",
+            password: "admin",
+          },
+          {
+            //url
+            params: {
+              id: 200,
+              vip: 9,
+            },
+            //请求头参数
+            headers: {
+              height: 100,
+              weight: 100,
+            },
+          }
+        );
+      };
+
+      btns[2].onclick = function () {
+        axios({
+          //请求方法
+          method: "post",
+          //url
+          url: "/axios-server",
+          //url参数
+          params: {
+            vip: 10,
+            level: 30,
+          },
+          //头信息
+          headers: {
+            weight: 100,
+            height: 100,
+          },
+          //   请求体参数
+          data: {
+            username: "tianchang",
+            password: "Xcy13137170431",
+          },
+        }).then((response) => {
+          //响应状态码
+          console.log(response.status);
+          //响应状态字符串
+          console.log(response.statusText);
+          //响应头信息
+          console.log(response.headers);
+          //响应体
+          console.log(response.data);
+        });
+      };
+    </script>
+  </body>
+</html>
